@@ -1,0 +1,3 @@
+Shared: objetos compartidos en todo el dominio, como son:
+			* Constantes
+			* Enums
