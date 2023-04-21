@@ -1,0 +1,3 @@
+Support: clases y definiciones que dan soporte a la capa de aplicación, como son:	
+		- Handlers
+		- Helpers
