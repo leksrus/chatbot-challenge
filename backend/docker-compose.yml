@@ -1,14 +1,75 @@
 version: '3.9'
 
 services:
-  api:
-    container_name: "SERVICE_API"
+  # chatapi:
+  #   container_name: "CHAT_API"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://+:80
+  #     - SwaggerSettings__ServiceName=StockBot
+  #   ports:
+  #     - "8000:80"
+  stockconsumerapp:
+    container_name: "STOCK_CONSUMER_APP"
     build:
-      context: .
+      context: .\StockConsumer\
+      dockerfile: Dockerfile
+    # environment:
+    #   - ASPNETCORE_ENVIRONMENT=Development
+    #   - ASPNETCORE_URLS=http://+:80
+    depends_on:
+      - rabbitmq
+      - chatsignalrhub
+  chatsignalrhub:
+    container_name: "CHAT_SIGNALR_HUB_API"
+    build:
+      context: .\SignalRHub\
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
-      - SwaggerSettings__ServiceName=StockBot
     ports:
-      - "8000:80"
+      - "8001:80"
+  chatbotapi:
+    container_name: "CHAT_BOT_API"
+    build:
+      context: .\StockBot\
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RedisCache__Host=redis
+      - RedisCache__Port=6379
+      - RabbitMQSettings__HostName=rabbitmq
+      - RabbitMQSettings__Port=5672
+      - RabbitMQSettings__ExchangeName=amq.topic
+      - RabbitMQSettings__ExchangeType=topic
+      - RabbitMQSettings__RoutingKey=stock_key
+      - RabbitMQSettings__User=test_user
+      - RabbitMQSettings__Password=test_password
+    ports:
+      - "8002:80"
+    depends_on:
+      - rabbitmq
+      - redis
+  redis:
+    container_name: "REDIS_SERVER"
+    image: redis/redis-stack-server:latest
+    restart: always
+    ports:
+      - '6379:6379'
+  rabbitmq:
+    container_name: "RABBIT_MQ"
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=test_user
+      - RABBITMQ_DEFAULT_PASS=test_password
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq

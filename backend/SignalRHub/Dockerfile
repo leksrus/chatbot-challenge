@@ -1,20 +1,23 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
+
+ENV TZ America/Argentina/Buenos_Aires
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["SignalRHub/SignalRHub.csproj", "SignalRHub/"]
-RUN dotnet restore "SignalRHub/SignalRHub.csproj"
-COPY . .
-WORKDIR "/src/SignalRHub"
-RUN dotnet build "SignalRHub.csproj" -c Release -o /app/build
+WORKDIR /sln
 
-FROM build AS publish
-RUN dotnet publish "SignalRHub.csproj" -c Release -o /app/publish
+COPY *.sln .
+
+COPY ./*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p ./${file%.*}/ && mv $file ./${file%.*}/; done
+
+RUN dotnet restore --no-cache
+
+COPY . .
+RUN dotnet publish -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SignalRHub.dll"]
+COPY --from=build /app .
+ENTRYPOINT ["dotnet", "SignalRHubApp.dll"]

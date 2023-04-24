@@ -25,9 +25,9 @@ namespace StockBot.Infrastructure
                 var factory = new ConnectionFactory
                 {
                     HostName = option.Value.HostName,
-                    Port = 5672,
-                    UserName = "user",
-                    Password = "password"
+                    Port = option.Value.Port,
+                    UserName = option.Value.User,
+                    Password = option.Value.Password
                 };
 
                 return new MqBrokerClient(factory.CreateConnection(), option);

@@ -8,15 +8,15 @@ using RabbitMQ.Client.Events;
 using StockConsumerApp.Entities;
 
 const string queueName = "stock_queue";
-const string chatHubUrl = "http://localhost:5238/chatHub";
+const string chatHubUrl = "http://chatsignalrhub/chatHub";
 
 Console.WriteLine($"... Starting Stock Consumer Subscriber ...");
 
 var factory = new ConnectionFactory {
     HostName = "localhost",
     Port = 5672,
-    UserName = "user",
-    Password = "password"
+    UserName = "test_user",
+    Password = "test_password"
 };
 
 
