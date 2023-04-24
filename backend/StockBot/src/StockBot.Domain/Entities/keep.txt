@@ -1,1 +1,0 @@
-Entities: entidades del dominio de la aplicación
