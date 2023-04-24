@@ -1,1 +1,0 @@
-Base: clase abstractas que modelan características comunes de las entidades

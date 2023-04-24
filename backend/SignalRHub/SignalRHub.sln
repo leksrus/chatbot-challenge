@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{A02B21
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRHub", "src\SignalR.App\SignalRHub.csproj", "{71B41D35-5D3E-4089-B633-21AEBB7C6368}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRHubApp", "SignalRHubApp\SignalRHubApp.csproj", "{F0C90F2D-3BDC-41CC-80E1-6250378F49E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,12 +18,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{71B41D35-5D3E-4089-B633-21AEBB7C6368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71B41D35-5D3E-4089-B633-21AEBB7C6368}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71B41D35-5D3E-4089-B633-21AEBB7C6368}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71B41D35-5D3E-4089-B633-21AEBB7C6368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0C90F2D-3BDC-41CC-80E1-6250378F49E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0C90F2D-3BDC-41CC-80E1-6250378F49E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0C90F2D-3BDC-41CC-80E1-6250378F49E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0C90F2D-3BDC-41CC-80E1-6250378F49E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{71B41D35-5D3E-4089-B633-21AEBB7C6368} = {ED02E9BF-73DD-4110-8B5A-D1F36888FC51}
+		{F0C90F2D-3BDC-41CC-80E1-6250378F49E1} = {ED02E9BF-73DD-4110-8B5A-D1F36888FC51}
 	EndGlobalSection
 EndGlobal
