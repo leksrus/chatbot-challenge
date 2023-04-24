@@ -15,14 +15,14 @@ public class TickerRepository : ITickerRepository
     
     public async Task<bool> AddAsync(Ticker ticker)
     {
-        return await _database.StringSetAsync(ticker.Symbol, ticker.Description);
+        return await _database.StringSetAsync(ticker.Symbol, ticker.Name);
     }
 
     public async Task<Ticker> GetAsync(string key)
     {
         var value = await _database.StringGetAsync(key);
 
-        return value.HasValue ? new Ticker {Symbol = key, Description = value} : null;
+        return value.HasValue ? new Ticker {Symbol = key, Name = value} : null;
     }
     
 }

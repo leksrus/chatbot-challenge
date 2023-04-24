@@ -1,6 +1,8 @@
-﻿namespace StockBot.Application.Services.Interfaces;
+﻿using StockBot.Application.DTOs;
+
+namespace StockBot.Application.Services.Interfaces;
 
 public interface IBotCommandService
 {
-    Task ExecuteStockCommandAsync(string command);
+    Task ExecuteStockCommandAsync(ChatRequestDto chatRequestDto);
 }

@@ -17,9 +17,14 @@ services:
     build:
       context: .\StockConsumer\
       dockerfile: Dockerfile
-    # environment:
-    #   - ASPNETCORE_ENVIRONMENT=Development
-    #   - ASPNETCORE_URLS=http://+:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RabbitMQSettings__HostName=rabbitmq
+      - RabbitMQSettings__Port=5672
+      - RabbitMQSettings__User=test_user
+      - RabbitMQSettings__Password=test_password
+      - RabbitMQSettings__QueueName=stock_queue
+      - ChatHubUrl=http://chatsignalrhub/chatHub
     depends_on:
       - rabbitmq
       - chatsignalrhub

@@ -1,6 +1,8 @@
-﻿namespace StockBot.Domain.Externals;
+﻿using StockBot.Domain.Entities;
+
+namespace StockBot.Domain.Externals;
 
 public interface IFileManager
 {
-    string[] GetFileFromDisk(string fileRoute);
+    Task<IEnumerable<Ticker>> GetTickersFromFileAsync(string fileRoute, string fileName);
 }

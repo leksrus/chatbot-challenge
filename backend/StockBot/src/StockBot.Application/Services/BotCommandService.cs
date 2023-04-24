@@ -1,4 +1,6 @@
-﻿using StockBot.Application.Services.Interfaces;
+﻿using StockBot.Application.DTOs;
+using StockBot.Application.Services.Interfaces;
+using StockBot.Application.Support.Helpers;
 using StockBot.Domain.Entities;
 using StockBot.Domain.Externals;
 using StockBot.Domain.Repositories;
@@ -18,29 +20,26 @@ public class BotCommandService : IBotCommandService
         _stoodQHttpClient = stoodQHttpClient;
     }
 
-    public async Task ExecuteStockCommandAsync(string command)
+    public async Task ExecuteStockCommandAsync(ChatRequestDto chatRequestDto)
     {
         var bot = new Bot();
-        var commandSplit = command.Split("=");
+        var commandSplit = chatRequestDto.Command.Split("=");
 
-        if (!bot.IsValidCommand(commandSplit[0])) throw new Exception("");
+        if (!bot.IsValidCommand(commandSplit[0])) throw new BusinessException("Command not Valid");
 
-        // await _tickerRepository.AddAsync(new Ticker { Symbol = commandSplit[1], Description = "asdasdsa" });
-        
-        var ticker = await _tickerRepository.GetAsync(commandSplit[1]);
+        var ticker = await _tickerRepository.GetAsync(commandSplit[1].ToUpper());
 
-        if (ticker is null) throw new Exception("");
+        if (ticker is null) throw new BusinessException("Wrong Symbol");
 
         var chatMessages = await _stoodQHttpClient.GetStockInformationAsync(ticker.Symbol);
 
         foreach (var chatMessage in chatMessages)
         {
-
+            chatMessage.ChannelName = chatMessage.ChannelName;
             chatMessage.MessageTime = DateTime.Now;
             chatMessage.UserName = "Chat Bot";
            
             await _mqBrokerClient.SendMessage(chatMessage);
         }
-        
     }
 }

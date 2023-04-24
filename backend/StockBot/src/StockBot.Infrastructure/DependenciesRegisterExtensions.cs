@@ -42,6 +42,7 @@ namespace StockBot.Infrastructure
 
             services.AddScoped<ITickerRepository, TickerRepository>();
             services.AddScoped<IStoodQHttpClient, StoodQHttpClient>();
+            services.AddScoped<IFileManager, FileManager>();
             
             return services;
         }

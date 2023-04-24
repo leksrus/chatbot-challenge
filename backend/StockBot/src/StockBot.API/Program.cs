@@ -1,4 +1,5 @@
 using Serilog;
+using StockBot.API.BackgroundServices;
 using StockBot.Application;
 using StockBot.Infrastructure;
 
@@ -14,12 +15,16 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHostedService<TickerSetBackgroundService>();
+
 builder.Host.UseSerilog((_, _, configuration) => {
     configuration.WriteTo.Console();
 });
 
 
 var app = builder.Build();
+
+app.UseExceptionHandler("/error");
 
 app
     .UseRouting()

@@ -1,0 +1,1 @@
+﻿Repositories: interfaces necesarias de los repositorios que implementara la capa de Infrastructure
