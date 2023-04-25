@@ -1,4 +1,4 @@
-﻿namespace StockBot.Infrastructure.RabbitMqConfig;
+﻿namespace StockConsumerSub.RabbitMqConfig;
 
 public class RabbitMqConfiguration
 {

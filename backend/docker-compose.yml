@@ -12,22 +12,26 @@ services:
   #     - SwaggerSettings__ServiceName=StockBot
   #   ports:
   #     - "8000:80"
-  stockconsumerapp:
-    container_name: "STOCK_CONSUMER_APP"
+  stockconsumersub:
+    container_name: "STOCK_CONSUMER_SUB_API"
     build:
       context: .\StockConsumer\
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - RabbitMQSettings__HostName=rabbitmq
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMQSettings__HostName=rabbitmq-container
       - RabbitMQSettings__Port=5672
       - RabbitMQSettings__User=test_user
       - RabbitMQSettings__Password=test_password
       - RabbitMQSettings__QueueName=stock_queue
       - ChatHubUrl=http://chatsignalrhub/chatHub
     depends_on:
-      - rabbitmq
+      - rabbitmq-container
       - chatsignalrhub
+    restart: on-failure
+    networks:
+      - backend_chat
   chatsignalrhub:
     container_name: "CHAT_SIGNALR_HUB_API"
     build:
@@ -38,6 +42,8 @@ services:
       - ASPNETCORE_URLS=http://+:80
     ports:
       - "8001:80"
+    networks:
+      - backend_chat
   chatbotapi:
     container_name: "CHAT_BOT_API"
     build:
@@ -48,26 +54,32 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - RedisCache__Host=redis
       - RedisCache__Port=6379
-      - RabbitMQSettings__HostName=rabbitmq
+      - RabbitMQSettings__HostName=rabbitmq-container
       - RabbitMQSettings__Port=5672
       - RabbitMQSettings__ExchangeName=amq.topic
       - RabbitMQSettings__ExchangeType=topic
       - RabbitMQSettings__RoutingKey=stock_key
+      - RabbitMQSettings__QueueName=stock_queue
       - RabbitMQSettings__User=test_user
       - RabbitMQSettings__Password=test_password
     ports:
       - "8002:80"
     depends_on:
-      - rabbitmq
+      - rabbitmq-container
       - redis
+    networks:
+      - backend_chat
   redis:
     container_name: "REDIS_SERVER"
     image: redis/redis-stack-server:latest
     restart: always
     ports:
       - '6379:6379'
-  rabbitmq:
+    networks:
+      - backend_chat
+  rabbitmq-container:
     container_name: "RABBIT_MQ"
+    hostname: rabbitmq-container
     image: rabbitmq:3-management
     environment:
       - RABBITMQ_DEFAULT_USER=test_user
@@ -75,6 +87,12 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    restart: on-failure
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - backend_chat
+networks:
+  backend_chat:
+    driver: bridge

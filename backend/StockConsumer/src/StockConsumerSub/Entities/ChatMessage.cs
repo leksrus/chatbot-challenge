@@ -1,4 +1,4 @@
-﻿namespace StockConsumerApp.Entities;
+﻿namespace StockConsumerSub.Entities;
 
 public class ChatMessage
 {
