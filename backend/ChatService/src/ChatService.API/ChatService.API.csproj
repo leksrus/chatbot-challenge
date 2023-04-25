@@ -16,11 +16,9 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
-
-		<PackageReference Include="GaliciaSeguros.IaaS.Service.Chassis.Logging" Version="1.0.*" />
-		<PackageReference Include="GaliciaSeguros.IaaS.Service.Chassis.ErrorHandling.WebApi" Version="1.0.*" />
-		
-		<PackageReference Include="GaliciaSeguros.IaaS.Service.Chassis.Swagger" Version="1.0.*" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
