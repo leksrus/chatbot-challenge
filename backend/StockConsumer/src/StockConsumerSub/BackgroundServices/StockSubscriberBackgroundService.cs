@@ -31,8 +31,6 @@ public class StockSubscriberBackgroundService : BackgroundService
     
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var queueName = _configuration.GetValue<string>("RabbitMQSettings:QueueName");
-        
         _logger.LogInformation($"... Creating Queues ...");
 
         _model.QueueDeclare(_rabbitMqConfiguration.QueueName, durable: true, autoDelete: false, exclusive: false);
@@ -40,7 +38,7 @@ public class StockSubscriberBackgroundService : BackgroundService
 
         var consumer = new EventingBasicConsumer(_model);
 
-        _logger.LogInformation("... Binding Subscriber to {QueueName} ...", queueName);
+        _logger.LogInformation("... Binding Subscriber to {QueueName} ...", _rabbitMqConfiguration.QueueName);
 
         var hubConnection = await GetSignalHub();
 
@@ -55,7 +53,7 @@ public class StockSubscriberBackgroundService : BackgroundService
             _logger.LogInformation("... Stock message sent to chat Hub ...");
         };
 
-        _model.BasicConsume(queueName, true, consumer);
+        _model.BasicConsume(_rabbitMqConfiguration.QueueName, true, consumer);
 
         _logger.LogInformation($"... Waiting messages ...");
     }
@@ -73,7 +71,7 @@ public class StockSubscriberBackgroundService : BackgroundService
         hubConnection.Closed += async (error) =>
         {
             _logger.LogError("... Error {ErrorMessage} ...", error?.Message);
-            await Task.Delay(5000);
+            await Task.Delay(TimeSpan.FromSeconds(5));
 
             Console.WriteLine($"... Starting Connection to Chat Hub ...");
             await hubConnection.StartAsync();
@@ -88,20 +86,18 @@ public class StockSubscriberBackgroundService : BackgroundService
 
     private IConnection GetRabbitMqConnection()
     {
-        _logger.LogInformation("... Starting Stock Consumer Subscriber ... HOST: {Value}", _configuration.GetValue<string>("RabbitMQSettings:HostName"));
+        _logger.LogInformation("... Starting Stock Consumer Subscriber ... HOST: {Value}", _rabbitMqConfiguration.HostName);
         
         var factory = new ConnectionFactory
         {
-            HostName = _configuration.GetValue<string>("RabbitMQSettings:HostName"),
-            Port = _configuration.GetValue<int>("RabbitMQSettings:Port"),
-            UserName = _configuration.GetValue<string>("RabbitMQSettings:User"),
-            Password = _configuration.GetValue<string>("RabbitMQSettings:Password"),
-            RequestedConnectionTimeout = TimeSpan.FromSeconds(30)
+            HostName = _rabbitMqConfiguration.HostName,
+            Port = _rabbitMqConfiguration.Port,
+            UserName = _rabbitMqConfiguration.User,
+            Password = _rabbitMqConfiguration.Password
         };
         
         _logger.LogInformation($"... Connecting to Rabbit MQ ... ");
 
         return factory.CreateConnection();
     }
-    
 }
