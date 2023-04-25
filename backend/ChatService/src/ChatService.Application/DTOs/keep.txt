@@ -1,3 +1,0 @@
-DTOs: define los DTOs que retornan los resultados de las llamadas a los Services. También pueden estar las definiciones de los DTOs retornados por las Queries.
-		* Como la capa de API (frontend) actua como una simple "puerta de entrada" a la lógica implementada por la capa de aplicación, los responses de los endpoints van a ser DTOs definidos en este directorio,
-		asociados a los resultados de los Services.
