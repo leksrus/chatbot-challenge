@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace StockBot.Application.DTOs;
+namespace ChatService.Application.DTOs;
 
-public class ChatRequestDto
+public class ChatBotDto
 {
     [JsonPropertyName("command")]
     public string Command { get; set; }

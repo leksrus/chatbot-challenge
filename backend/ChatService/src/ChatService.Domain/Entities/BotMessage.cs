@@ -1,8 +1,8 @@
 ﻿namespace ChatService.Domain.Entities;
 
-public class Bot
+public class BotMessage
 {
     public string Command { get; set; }
 
-    public string ChatChannel { get; set; }
+    public string ChatRoom { get; set; }
 }

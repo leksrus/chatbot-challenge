@@ -35,7 +35,7 @@ public class MessagesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Get(string chatRoom)
     {
-        var messages = _messagesService.GetLastMessagesForChannelAsync(chatRoom);
+        var messages = await _messagesService.GetLastMessagesForChannelAsync(chatRoom);
         
         return Ok(messages);
     }
@@ -47,16 +47,16 @@ public class MessagesController : ControllerBase
     /// Create new message
     /// </remarks>
     /// <returns></returns>
-    /// <param name="messageDto">Message Dto</param>
+    /// <param name="chatMessageDto">Chat Message Dto</param>
     /// <response code="201">Return created message</response>
     /// /// /// <response code="500">Internal error</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Post([FromBody] MessageDto messageDto)
+    public async Task<IActionResult> Post([FromBody] ChatMessageDto chatMessageDto)
     {
-        var newMessage = await _messagesService.AddMessageAsync(messageDto);
+        var newMessage = await _messagesService.ProcessMessageAsync(chatMessageDto);
         
         return StatusCode(StatusCodes.Status201Created, newMessage);
     }

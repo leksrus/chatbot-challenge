@@ -5,6 +5,7 @@ using StockBot.Application.Services.Interfaces;
 namespace StockBot.API.Controllers;
 
 [ApiController]
+[Consumes("application/json")]
 [Route("api/[controller]")]
 public class BotCommandsController : ControllerBase
 {

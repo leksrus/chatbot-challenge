@@ -1,8 +1,10 @@
 ﻿using ChatService.Domain.Auth;
 using ChatService.Domain.Crypto;
+using ChatService.Domain.HttpClients;
 using ChatService.Domain.Repositories;
 using ChatService.Infrastructure.Auth;
 using ChatService.Infrastructure.Crypto;
+using ChatService.Infrastructure.HttpClients;
 using ChatService.Infrastructure.Repositories;
 using ChatService.Infrastructure.Support.Config;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +26,7 @@ namespace ChatService.Infrastructure
             services.AddScoped<IJwtManager, JwtManager>();
             services.AddScoped<IMessagesRepository, MessagesRepository>();
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IChatBotHttpClient, ChatBotHttpClient>();
 
             services.AddSingleton<IMongoDatabase>(_ => {
                 var settings =  configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();

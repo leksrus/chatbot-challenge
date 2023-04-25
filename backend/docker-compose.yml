@@ -1,17 +1,22 @@
 version: '3.9'
 
 services:
-  # chatapi:
-  #   container_name: "CHAT_API"
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_URLS=http://+:80
-  #     - SwaggerSettings__ServiceName=StockBot
-  #   ports:
-  #     - "8000:80"
+  chatapi:
+    container_name: "CHAT_SERVICE_API"
+    build:
+      context: .\ChatService\
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - MongoDbSettings__HostName=ConnectionString
+      - MongoDbSettings__HostName=DatabaseName
+      - ChatBotUrl=http://chatbotapi/api/botcommands
+    ports:
+      - "8000:80"
+    depends_on:
+      - mongodb
+      - chatbotapi
   stockconsumersub:
     container_name: "STOCK_CONSUMER_SUB_API"
     build:
@@ -91,6 +96,12 @@ services:
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - backend_chat
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    ports:
+      - '27017:27017'
     networks:
       - backend_chat
 networks:

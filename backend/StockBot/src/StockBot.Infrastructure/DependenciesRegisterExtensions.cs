@@ -44,6 +44,8 @@ namespace StockBot.Infrastructure
             services.AddScoped<IStoodQHttpClient, StoodQHttpClient>();
             services.AddScoped<IFileManager, FileManager>();
             
+            services.AddAutoMapper(cfg => { cfg.AddMaps(AutoMapperConfig.RegisterMappings()); });
+            
             return services;
         }
     }

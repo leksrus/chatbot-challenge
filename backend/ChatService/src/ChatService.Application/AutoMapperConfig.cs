@@ -8,7 +8,7 @@ public static class AutoMapperConfig
     {
         return new[]
         {
-            typeof(MessageDtoToMessage),
+            typeof(ChatMessageDtoToMessage),
             typeof(MessageToMessageDto),
             typeof(UserToUserDto),
             typeof(UserDtoToUser)

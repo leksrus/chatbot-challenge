@@ -1,5 +1,4 @@
-﻿using ChatService.Application.Support.Helpers;
-using ChatService.Application.Support.Helpers.Exceptions;
+﻿using ChatService.Application.Support.Helpers.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;

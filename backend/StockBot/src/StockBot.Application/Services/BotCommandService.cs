@@ -31,13 +31,13 @@ public class BotCommandService : IBotCommandService
 
         if (ticker is null) throw new BusinessException("Wrong Symbol");
 
-        var chatMessages = await _stoodQHttpClient.GetStockInformationAsync(ticker.Symbol);
+        var chatMessages = await _stoodQHttpClient.GetStockInformationAsync(ticker.Symbol.ToLower());
 
         foreach (var chatMessage in chatMessages)
         {
-            chatMessage.ChannelName = chatMessage.ChannelName;
-            chatMessage.MessageTime = DateTime.Now;
-            chatMessage.UserName = "Chat Bot";
+            chatMessage.ChatRoom = chatRequestDto.ChatRoom;
+            chatMessage.TimeStamp = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            chatMessage.UserName = "ChatBot";
            
             await _mqBrokerClient.SendMessage(chatMessage);
         }

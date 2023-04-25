@@ -11,7 +11,8 @@ public static class AutoMapperConfig
             typeof(UserToUserModel),
             typeof(UserModelToUser),
             typeof(MessageModelToMessage),
-            typeof(MessageToMessageModel)
+            typeof(MessageToMessageModel),
+            typeof(BotMessageToChatBotDto)
         };
     }
 }

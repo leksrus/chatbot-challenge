@@ -17,11 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5CFF9851
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatService.UnitTests", "tests\ChatService.UnitTests\ChatService.UnitTests.csproj", "{390E4631-CC7A-4E7E-AD07-7C17D845C1ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatService.IntegrationTests", "tests\ChatService.IntegrationTests\ChatService.IntegrationTests.csproj", "{F11DA236-1E6E-4148-A3A2-AF7EE4C8FBD2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{6BF3A546-43DE-4CDE-84FB-6F37088A9598}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
@@ -51,10 +48,6 @@ Global
 		{390E4631-CC7A-4E7E-AD07-7C17D845C1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{390E4631-CC7A-4E7E-AD07-7C17D845C1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{390E4631-CC7A-4E7E-AD07-7C17D845C1ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F11DA236-1E6E-4148-A3A2-AF7EE4C8FBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F11DA236-1E6E-4148-A3A2-AF7EE4C8FBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F11DA236-1E6E-4148-A3A2-AF7EE4C8FBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F11DA236-1E6E-4148-A3A2-AF7EE4C8FBD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,7 +58,6 @@ Global
 		{AABD8C8D-7E86-4EE6-90BB-3141A20E8BE2} = {33246E89-788F-420F-BF99-4AEC25318EC8}
 		{508CE178-6EFC-4345-8391-DC7051D70791} = {33246E89-788F-420F-BF99-4AEC25318EC8}
 		{390E4631-CC7A-4E7E-AD07-7C17D845C1ED} = {5CFF9851-F9CA-4C57-99AA-BC75D1D53DC0}
-		{F11DA236-1E6E-4148-A3A2-AF7EE4C8FBD2} = {5CFF9851-F9CA-4C57-99AA-BC75D1D53DC0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B339CB9B-D1FE-41FE-85BA-153D8AF86B38}

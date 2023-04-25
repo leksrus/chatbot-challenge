@@ -6,5 +6,5 @@ public interface IMessagesService
 {
     Task<IEnumerable<MessageDto>> GetLastMessagesForChannelAsync(string chatRoom);
 
-    Task<MessageDto> AddMessageAsync(MessageDto messageDto);
+    Task<MessageDto> ProcessMessageAsync(ChatMessageDto chatMessageDto);
 }

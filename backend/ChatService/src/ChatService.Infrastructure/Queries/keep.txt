@@ -1,1 +1,0 @@
-﻿Queries: Consultas a sistemas externos que precise la aplicacion

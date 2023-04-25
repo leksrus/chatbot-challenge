@@ -1,6 +1,13 @@
-﻿namespace ChatService.Application.Support.Helpers;
+﻿using AutoMapper;
+using ChatService.Application.DTOs;
+using ChatService.Domain.Entities;
 
-public class MessageToMessageDto
+namespace ChatService.Application.Support.Helpers;
+
+public class MessageToMessageDto : Profile
 {
-    
+    public MessageToMessageDto()
+    {
+        CreateMap<Message, MessageDto>();
+    }
 }

@@ -4,5 +4,5 @@ namespace ChatService.Domain.HttpClients;
 
 public interface IChatBotHttpClient
 {
-    Task SendCommand(Bot bot);
+    Task<KeyValuePair<bool, string>> SendCommand(BotMessage botMessage);
 }
