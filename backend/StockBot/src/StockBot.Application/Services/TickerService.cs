@@ -14,8 +14,8 @@ public class TickerService : ITickerServices
         _tickerRepository = tickerRepository;
         _fileManager = fileManager;
     }
-    
-    public  async Task LoadTickersAsync()
+
+    public async Task LoadTickersAsync()
     {
         var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var fileDirectory = string.Concat(appDirectory, "Tickers");
