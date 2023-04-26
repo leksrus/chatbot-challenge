@@ -16,6 +16,14 @@ builder.Services.AddApplication();
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder => builder
+        .WithOrigins("http://localhost:3000")
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Chat Service", Version = "v1" });
@@ -67,6 +75,7 @@ app.UseExceptionHandler("/error");
 
 app
     .UseRouting()
+    .UseCors("CorsPolicy")
     .UseAuthorization()
     .UseEndpoints(endpoints =>
     {

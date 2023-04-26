@@ -44,6 +44,6 @@ public class UsersService : IUsersServices
         var salt = _cryptoManager.GetSalt();
         var mongoUser =  await _usersRepository.FindAsync(user.Name);
 
-        return _cryptoManager.VerifyHash(user.Password, mongoUser.Password, salt);
+        return _cryptoManager.VerifyHash(user.Password, mongoUser?.Password ?? string.Empty, salt);
     }
 }
