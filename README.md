@@ -36,6 +36,9 @@ Front End is React App so you need to run it with npm.
 
 Reference: https://nodejs.org/es
 
+#### Projects Logical Structure
+- Domain Driven Design (DDD)
+
 #### Components
 - SignalR for real time update
 - Rabbit MQ for sending Stock Price to Hub
