@@ -34,7 +34,7 @@ public class MessagesService : IMessagesService
     {
         var message = _mapper.Map<Message>(chatMessageDto);
 
-        var firstChar = message.Text[..1];
+        var firstChar = string.IsNullOrWhiteSpace(message.Text) ? string.Empty : message.Text[..1];
 
         if (!firstChar.Equals("/"))
         {
