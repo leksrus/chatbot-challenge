@@ -1,4 +1,4 @@
-![Chat Challenge](assets/Solution-Diagram.png)
+![Chat Challenge](assets/solution.diagram.png)
 
 
 ---
