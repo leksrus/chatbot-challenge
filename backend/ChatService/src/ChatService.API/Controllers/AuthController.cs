@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Post([FromBody] UserAuthDto userAuthDto)
     {
-        var authDto = await _authService.GetToken(userAuthDto);
+        var authDto = await _authService.GetTokenAsync(userAuthDto);
         
         return StatusCode(StatusCodes.Status201Created, authDto);
     }

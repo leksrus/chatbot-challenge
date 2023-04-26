@@ -20,7 +20,7 @@ public class AuthService : IAuthService
         _jwtManager = jwtManager;
     }
     
-    public async Task<AuthDto> GetToken(UserAuthDto userAuthDto)
+    public async Task<AuthDto> GetTokenAsync(UserAuthDto userAuthDto)
     {
         var user = _mapper.Map<User>(userAuthDto);
 

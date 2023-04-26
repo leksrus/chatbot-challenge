@@ -4,5 +4,5 @@ namespace ChatService.Application.Services.Interfaces;
 
 public interface IAuthService
 {
-    Task<AuthDto> GetToken(UserAuthDto userAuthDto);
+    Task<AuthDto> GetTokenAsync(UserAuthDto userAuthDto);
 }

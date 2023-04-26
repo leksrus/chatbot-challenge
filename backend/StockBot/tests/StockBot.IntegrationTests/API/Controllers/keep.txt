@@ -1,1 +1,0 @@
-Controllers: tests de integración cuyo punto inicial son los controllers.

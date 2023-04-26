@@ -4,8 +4,8 @@ namespace ChatService.Application.DTOs;
 
 public class ChatMessageDto
 {
-    [JsonPropertyName("user_name")]
-    public string UserName { get; set; }
+    [JsonIgnore]
+    public string? UserName { get; set; }
 
     [JsonPropertyName("chat_room")]
     public string ChatRoom { get; set; }

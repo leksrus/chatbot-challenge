@@ -6,5 +6,5 @@ public interface IMessagesRepository
 {
     Task<IEnumerable<Message>> GetLastMessagesAsync(string chatRoom, int messagesCount);
 
-    Task<Message> Add(Message message);
+    Task<Message> AddAsync(Message message);
 }

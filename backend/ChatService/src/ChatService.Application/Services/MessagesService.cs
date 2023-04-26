@@ -34,11 +34,11 @@ public class MessagesService : IMessagesService
     {
         var message = _mapper.Map<Message>(chatMessageDto);
 
-        var firstChar = message.Text.Substring(0, 1);
+        var firstChar = message.Text[..1];
 
         if (!firstChar.Equals("/"))
         {
-            var newMessage = await _messagesRepository.Add(message);
+            var newMessage = await _messagesRepository.AddAsync(message);
         
             return _mapper.Map<MessageDto>(newMessage);
         }

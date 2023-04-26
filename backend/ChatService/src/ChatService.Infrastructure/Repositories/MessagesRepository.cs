@@ -2,6 +2,7 @@
 using ChatService.Domain.Entities;
 using ChatService.Domain.Repositories;
 using ChatService.Infrastructure.Repositories.MongoModels;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace ChatService.Infrastructure.Repositories;
@@ -20,17 +21,16 @@ public class MessagesRepository : IMessagesRepository
     
     public async Task<IEnumerable<Message>> GetLastMessagesAsync(string chatRoom, int messagesCount)
     {
-        var filter = Builders<MessageModel>.Filter;
-        var condition = filter.Eq("chat_room", chatRoom);
+        var filter = Builders<MessageModel>.Filter.Eq("chat_room", chatRoom);
         var messagesModel = await _mongoMessagesCollection
-            .Find(condition).SortByDescending(p => p.TimeStamp)
-            .Skip(messagesCount)
+            .Find(filter).SortByDescending(p => p.TimeStamp)
+            .Limit(messagesCount)
             .ToListAsync();
 
         return _mapper.Map<IEnumerable<Message>>(messagesModel);
     }
 
-    public async Task<Message> Add(Message message)
+    public async Task<Message> AddAsync(Message message)
     {
         var mongoMessage = _mapper.Map<MessageModel>(message);
 

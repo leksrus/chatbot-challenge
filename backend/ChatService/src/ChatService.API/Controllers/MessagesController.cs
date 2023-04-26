@@ -1,4 +1,5 @@
-﻿using ChatService.Application.DTOs;
+﻿using System.Security.Claims;
+using ChatService.Application.DTOs;
 using ChatService.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,13 @@ public class MessagesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Post([FromBody] ChatMessageDto chatMessageDto)
     {
+        
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        
+        if (identity != null)
+            chatMessageDto.UserName = identity.FindFirst("UserName").Value;
+
+        
         var newMessage = await _messagesService.ProcessMessageAsync(chatMessageDto);
         
         return StatusCode(StatusCodes.Status201Created, newMessage);
