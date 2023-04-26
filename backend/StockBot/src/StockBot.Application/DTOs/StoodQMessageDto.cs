@@ -1,6 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-
-namespace StockBot.Application.DTOs;
+﻿namespace StockBot.Application.DTOs;
 
 public class StoodQMessageDto
 {
@@ -19,7 +17,4 @@ public class StoodQMessageDto
     public string Close { get; set; }
     
     public string Volume { get; set; }
-    
-    [Name("OI")]
-    public string Oi { get; set; }
 }

@@ -29,6 +29,11 @@
 		<InternalsVisibleTo Include="StockBot.IntegrationTests" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Tickers\" />
+	  <Folder Include="Tickers" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Tickers\Tickers.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>

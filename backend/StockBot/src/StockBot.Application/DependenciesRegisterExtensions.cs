@@ -8,8 +8,8 @@ namespace StockBot.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-
             services.AddScoped<IBotCommandService, BotCommandService>();
+            services.AddScoped<ITickerServices, TickerService>();
 
             return services;
         }

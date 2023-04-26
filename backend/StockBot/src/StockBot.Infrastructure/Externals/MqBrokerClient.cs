@@ -17,11 +17,12 @@ public class MqBrokerClient : IMqBrokerClient
     {
         _model = connection.CreateModel();
         _rabbitMqConfiguration = options.Value;
+        _model.QueueDeclare(_rabbitMqConfiguration.QueueName, durable: true, autoDelete: false, exclusive: false);
+        _model.QueueBind(_rabbitMqConfiguration.QueueName, _rabbitMqConfiguration.ExchangeName, _rabbitMqConfiguration.RoutingKey);
     }
     
     public Task SendMessage<T>(T message)
     {
-        
         var messageJson = JsonSerializer.Serialize(message);
 
         var body = Encoding.UTF8.GetBytes(messageJson);

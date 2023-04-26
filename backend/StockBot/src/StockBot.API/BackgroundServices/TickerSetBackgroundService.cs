@@ -1,11 +1,21 @@
-﻿namespace StockBot.API.BackgroundServices;
+﻿using StockBot.Application.Services.Interfaces;
+
+namespace StockBot.API.BackgroundServices;
 
 public class TickerSetBackgroundService : BackgroundService
 {
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    private readonly IServiceProvider _serviceProvider;
+
+    public TickerSetBackgroundService(IServiceProvider serviceProvider)
     {
-        var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        
-        throw new NotImplementedException();
+        _serviceProvider = serviceProvider;
+    }
+    
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var tickerService = scope.ServiceProvider.GetRequiredService<ITickerServices>();
+
+        await tickerService.LoadTickersAsync();
     }
 }
